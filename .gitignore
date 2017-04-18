@@ -1,0 +1,8 @@
+.vs/
+packages/
+WebApiUtilities/bin/
+WebApiUtilities/obj/
+WebApiUtilities.Core/bin/
+WebApiUtilities.Core/obj/
+WebApiUtilities.Core.Tests/bin/
+WebApiUtilities.Core.Tests/obj/
