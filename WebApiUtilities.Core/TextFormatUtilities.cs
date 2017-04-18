@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Text;
 using WebApiUtilities.Core.Interface;
 using System.Text.RegularExpressions;
+using System.Linq;
 
 namespace WebApiUtilities.Core
 {
@@ -10,6 +11,7 @@ namespace WebApiUtilities.Core
     {
 
         private const string onlyNumber = "[^0-9]";
+        private const string onlyLetter = "[^0-9a-zA-Záéíóúàèìòùâêîôûãõç]";
 
         public string RemoveLetter(string text)
         {
@@ -19,24 +21,15 @@ namespace WebApiUtilities.Core
 
         public string RemoveNotations(string text)
         {
-            string s = text.Normalize(NormalizationForm.FormD);
+            var textNormalized = text.Normalize(NormalizationForm.FormD)
+                .Where(x => CharUnicodeInfo.GetUnicodeCategory(x) != UnicodeCategory.NonSpacingMark);
 
-            StringBuilder sb = new StringBuilder();
-
-            for (int k = 0; k < s.Length; k++)
-            {
-                UnicodeCategory uc = CharUnicodeInfo.GetUnicodeCategory(s[k]);
-                if (uc != UnicodeCategory.NonSpacingMark)
-                {
-                    sb.Append(s[k]);
-                }
-            }
-            return sb.ToString();
+            return string.Join(string.Empty, textNormalized);
         }
 
         public string RemoveSpecialSymbols(string text)
         {
-            throw new NotImplementedException();
+            return new Regex(onlyLetter).Replace(text, string.Empty);
         }
     }
 }

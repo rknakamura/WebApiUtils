@@ -22,5 +22,23 @@ namespace WebApiUtilities.Core.Tests
             var actual = _utils.RemoveLetter(text);
             Assert.That(actual, Is.EqualTo(expected));
         }
+
+        [TestCase("ê", "e")]
+        [TestCase("bê", "be")]
+        [TestCase("bêbádãou", "bebadaou")]
+        public void RemoveNotations(string text, string expected)
+        {
+            var actual = _utils.RemoveNotations(text);
+            Assert.That(actual, Is.EqualTo(expected));
+        }
+
+        [TestCase("ê!%", "ê")]
+        [TestCase("bê*", "bê")]
+        [TestCase("bêbádãou#@!$#$#", "bêbádãou")]
+        public void RemoveSpecialSymbols(string text, string expected)
+        {
+            var actual = _utils.RemoveSpecialSymbols(text);
+            Assert.That(actual, Is.EqualTo(expected));
+        }
     }
 }
