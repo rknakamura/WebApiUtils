@@ -7,17 +7,29 @@ namespace WebApiUtilities.Core
     {
         public DateTime ConvertToDate(string date)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var day = int.Parse(date.Substring(0, 2));
+                var month = int.Parse(date.Substring(2, 2));
+                var year = int.Parse(date.Substring(4, 4));
+
+                return new DateTime(year, month, day);
+            }
+            catch
+            {
+                return DateTime.MinValue;
+            } 
         }
 
         public string FormatToDate(DateTime date)
         {
-            throw new NotImplementedException();
+            return date.ToShortDateString();
         }
 
-        public bool IsValidDate(DateTime date)
+        public bool IsValidDate(string date)
         {
-            throw new NotImplementedException();
+            var defaultDate = DateTime.MinValue;
+            return DateTime.TryParse(date, out defaultDate);
         }
     }
 }
